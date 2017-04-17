@@ -62,3 +62,29 @@ mpirun -n 16 /share/apps/Ray/Ray-2.3.1/Ray -k a -amos -p /storage/ao006/Nitz4_pr
 --al-conc-gz Nitz4_plast_reads_%.fq.gz
 
 ```
+- Assemble genome without plastid reads
+
+```
+mpirun -n 16 /share/apps/Ray/Ray-2.3.1/Ray -show-memory-usage -k 45 -amos -p /storage/ao006/Nitz4_project/bowt2_output/bowt_nitz4_aln/Nitz4_noplastom_1.fq  \
+/storage/ao006/Nitz4_project/bowt2_output/bowt_nitz4_aln/Nitz4_noplastom_2.fq  -o nitz4.ray.noplast.K45
+```
+
+- Find mitochondrial scaffolds
+
+[msjd](~/Desktop/Nitz4/papers/gene.fold.names.md)
+
+
+```
+
+
+- Get rid of mitochondrial reads
+
+```
+#align reads to mitochondrial contig
+/share/apps/bowtie2/bowtie2-2.2.8/bin/bowtie2 --seed 1 -p 16 -x /scratch/ao006/Nitz4_project/bowt.get.rid.mito.reads/cont.4000015.DB/cont4.15 \
+-1 /storage/ao006/Nitz4_project/bowt2_output/bowt_nitz4_aln/Nitz4_noplastom_1.fq.gz \
+-2 /storage/ao006/Nitz4_project/bowt2_output/bowt_nitz4_aln/Nitz4_noplastom_2.fq.gz \
+--phred64 --local --un-conc-gz Nitz4_no_organel_%.fq.gz \
+--al-conc-gz Nitz4_mito_reads_%.fq.gz
+
+```
